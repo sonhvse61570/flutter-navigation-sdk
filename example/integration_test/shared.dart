@@ -163,8 +163,11 @@ Future<void> checkLocationDialogAcceptance(PatrolIntegrationTester $) async {
     final Future<PermissionStatus> locationGranted =
         Permission.locationWhenInUse.request();
 
-    // Grant location permission.
-    await $.native.grantPermissionWhenInUse();
+    if (await $.native
+        .isPermissionDialogVisible(timeout: const Duration(seconds: 5))) {
+      // Grant location permission.
+      await $.native.grantPermissionWhenInUse();
+    }
 
     // Check that the location permission is granted.
     await locationGranted.then((PermissionStatus status) async {
@@ -500,3 +503,7 @@ int? colorToInt(Color? color) {
       (floatToInt8(color.g) << 8) |
       (floatToInt8(color.b));
 }
+
+/// Helper function to build a reason for the test.
+String buildReasonForToggle(String toggle, bool result) =>
+    'set$toggle($result) should update the internal state so that a subsequent call to is$toggle returns $result.';

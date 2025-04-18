@@ -376,6 +376,14 @@ class GoogleMapsNavigationViewMessageHandler: MapViewApi {
     try getView(viewId).setTrafficIncidentCardsEnabled(enabled)
   }
 
+  func setReportIncidentButtonEnabled(viewId: Int64, enabled: Bool) throws {
+    try getView(viewId).setReportIncidentButtonEnabled(enabled)
+  }
+
+  func setTrafficPromptsEnabled(viewId: Int64, enabled: Bool) throws {
+    try getView(viewId).setTrafficPromptsEnabled(enabled)
+  }
+
   func isNavigationTripProgressBarEnabled(viewId: Int64) throws -> Bool {
     try getView(viewId).isNavigationTripProgressBarEnabled()
   }
@@ -406,6 +414,14 @@ class GoogleMapsNavigationViewMessageHandler: MapViewApi {
 
   func isTrafficIncidentCardsEnabled(viewId: Int64) throws -> Bool {
     try getView(viewId).isTrafficIncidentCardsEnabled()
+  }
+
+  func isReportIncidentButtonEnabled(viewId: Int64) throws -> Bool {
+    try getView(viewId).isReportIncidentButtonEnabled()
+  }
+
+  func isTrafficPromptsEnabled(viewId: Int64) throws -> Bool {
+    try getView(viewId).isTrafficPromptsEnabled()
   }
 
   func isNavigationUIEnabled(viewId: Int64) throws -> Bool {
@@ -532,8 +548,8 @@ class GoogleMapsNavigationViewMessageHandler: MapViewApi {
     try getView(viewId).setMaxZoomPreference(maxZoomPreference: Float(maxZoomPreference))
   }
 
-  func registerOnCameraChangedListener(viewId: Int64) throws {
-    try getView(viewId).registerOnCameraChangedListener()
+  func enableOnCameraChangedEvents(viewId: Int64) throws {
+    try getView(viewId).enableOnCameraChangedEvents()
   }
 
   func setPadding(viewId: Int64, padding: MapPaddingDto) throws {
