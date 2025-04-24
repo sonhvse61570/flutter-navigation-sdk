@@ -4675,9 +4675,9 @@ class MapViewApi {
     }
   }
 
-  Future<void> enableOnCameraChangedEvents(int viewId) async {
+  Future<void> registerOnCameraChangedListener(int viewId) async {
     const String __pigeon_channelName =
-        'dev.flutter.pigeon.google_navigation_flutter.MapViewApi.enableOnCameraChangedEvents';
+        'dev.flutter.pigeon.google_navigation_flutter.MapViewApi.registerOnCameraChangedListener';
     final BasicMessageChannel<Object?> __pigeon_channel =
         BasicMessageChannel<Object?>(
       __pigeon_channelName,
@@ -8752,9 +8752,9 @@ class AutoMapViewApi {
     }
   }
 
-  Future<void> enableOnCameraChangedEvents() async {
+  Future<void> registerOnCameraChangedListener() async {
     const String __pigeon_channelName =
-        'dev.flutter.pigeon.google_navigation_flutter.AutoMapViewApi.enableOnCameraChangedEvents';
+        'dev.flutter.pigeon.google_navigation_flutter.AutoMapViewApi.registerOnCameraChangedListener';
     final BasicMessageChannel<Object?> __pigeon_channel =
         BasicMessageChannel<Object?>(
       __pigeon_channelName,

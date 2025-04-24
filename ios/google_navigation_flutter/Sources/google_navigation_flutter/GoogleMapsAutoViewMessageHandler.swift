@@ -464,8 +464,8 @@ class GoogleMapsAutoViewMessageHandler: AutoMapViewApi {
     try getView().setMaxZoomPreference(maxZoomPreference: Float(maxZoomPreference))
   }
 
-  func enableOnCameraChangedEvents() throws {
-    try getView().enableOnCameraChangedEvents()
+  func registerOnCameraChangedListener() throws {
+    try getView().registerOnCameraChangedListener()
   }
 
   func isAutoScreenAvailable() throws -> Bool {

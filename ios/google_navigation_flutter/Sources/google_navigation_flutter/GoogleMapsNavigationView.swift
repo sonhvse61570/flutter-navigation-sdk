@@ -869,7 +869,7 @@ public class GoogleMapsNavigationView: NSObject, FlutterPlatformView, ViewSettle
     _consumeMyLocationButtonClickEventsEnabled
   }
 
-  func enableOnCameraChangedEvents() {
+  func registerOnCameraChangedListener() {
     // Camera listeners cannot be controlled at runtime, so use this
     // boolean to control if camera changes are sent over the event channel.
     _listenCameraChanges = true

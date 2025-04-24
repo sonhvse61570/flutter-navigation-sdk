@@ -1405,14 +1405,12 @@ class _NavigationPageState extends ExamplePageState<NavigationPage> {
                       ElevatedButton(
                         onPressed: _pauseSimulation,
                         child: const Text('Pause simulation'),
-                      )
-                    else if (_simulationState == SimulationState.paused)
+                      ),
+                    if (_simulationState == SimulationState.paused)
                       ElevatedButton(
                         onPressed: _resumeSimulation,
                         child: const Text('Resume simulation'),
-                      )
-                    else
-                      Text(_simulationState.description),
+                      ),
                   ],
                 ),
                 const SizedBox(height: 10)
@@ -1770,24 +1768,6 @@ class _NavigationPageState extends ExamplePageState<NavigationPage> {
     } else {
       final SnackBar snackBar = SnackBar(content: Text(message));
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
-    }
-  }
-}
-
-/// Returns a human-readable description of the [SimulationState].
-extension SimulationStateDescription on SimulationState {
-  String get description {
-    switch (this) {
-      case SimulationState.unknown:
-        return 'Unknown simulation state';
-      case SimulationState.running:
-        return 'Running';
-      case SimulationState.runningOutdated:
-        return 'Running with outdated route';
-      case SimulationState.paused:
-        return 'Paused';
-      case SimulationState.notRunning:
-        return 'Not running';
     }
   }
 }

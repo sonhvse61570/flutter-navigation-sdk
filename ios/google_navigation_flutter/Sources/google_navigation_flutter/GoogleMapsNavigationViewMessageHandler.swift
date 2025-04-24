@@ -548,8 +548,8 @@ class GoogleMapsNavigationViewMessageHandler: MapViewApi {
     try getView(viewId).setMaxZoomPreference(maxZoomPreference: Float(maxZoomPreference))
   }
 
-  func enableOnCameraChangedEvents(viewId: Int64) throws {
-    try getView(viewId).enableOnCameraChangedEvents()
+  func registerOnCameraChangedListener(viewId: Int64) throws {
+    try getView(viewId).registerOnCameraChangedListener()
   }
 
   func setPadding(viewId: Int64, padding: MapPaddingDto) throws {

@@ -1726,9 +1726,9 @@ class MockTestMapViewApi extends _i1.Mock implements _i3.TestMapViewApi {
       );
 
   @override
-  void enableOnCameraChangedEvents(int? viewId) => super.noSuchMethod(
+  void registerOnCameraChangedListener(int? viewId) => super.noSuchMethod(
         Invocation.method(
-          #enableOnCameraChangedEvents,
+          #registerOnCameraChangedListener,
           [viewId],
         ),
         returnValueForMissingStub: null,

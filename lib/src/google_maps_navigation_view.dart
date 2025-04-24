@@ -146,18 +146,13 @@ class GoogleMapsNavigationViewState
             navigationViewOptions: NavigationViewOptions(
                 navigationUIEnabledPreference:
                     widget.initialNavigationUIEnabledPreference)),
-        onPlatformViewCreated: _onPlatformViewCreated,
-        onMapReady: _onMapReady);
+        onMapReady: _onPlatformViewCreated);
   }
 
-  /// Callback method for platform view is created event.
+  /// Callback method when platform view is created.
   void _onPlatformViewCreated(int viewId) {
     initMapViewListeners(viewId);
     _initNavigationViewListeners(viewId);
-  }
-
-  /// Callback method for map ready event.
-  void _onMapReady(int viewId) {
     final GoogleNavigationViewController viewController =
         GoogleNavigationViewController(viewId);
     widget.onViewCreated(viewController);
