@@ -163,11 +163,8 @@ Future<void> checkLocationDialogAcceptance(PatrolIntegrationTester $) async {
     final Future<PermissionStatus> locationGranted =
         Permission.locationWhenInUse.request();
 
-    if (await $.native
-        .isPermissionDialogVisible(timeout: const Duration(seconds: 5))) {
-      // Grant location permission.
-      await $.native.grantPermissionWhenInUse();
-    }
+    // Grant location permission.
+    await $.native.grantPermissionWhenInUse();
 
     // Check that the location permission is granted.
     await locationGranted.then((PermissionStatus status) async {
