@@ -50,11 +50,6 @@ public class GoogleMapsNavigationView: NSObject, FlutterPlatformView, ViewSettle
   var isAttachedToSession: Bool = false
   private let _isCarPlayView: Bool
 
-  // As prompt visibility settings is handled by the navigator, value is
-  // stored here to handle the session attach. On android prompts visibility
-  // is handled by the view.
-  private var _isTrafficPromptsEnabled: Bool = true
-
   public func view() -> UIView {
     _mapView
   }
@@ -454,12 +449,8 @@ public class GoogleMapsNavigationView: NSObject, FlutterPlatformView, ViewSettle
         ) { _ in }
     }
 
-    // Update traffic prompts enabled state
-    session.navigator?.shouldDisplayPrompts = _isTrafficPromptsEnabled
-
     _mapView.navigationUIDelegate = self
     isAttachedToSession = true
-
     return result
   }
 
@@ -529,27 +520,6 @@ public class GoogleMapsNavigationView: NSObject, FlutterPlatformView, ViewSettle
 
   func setTrafficIncidentCardsEnabled(_ enabled: Bool) {
     _mapView.settings.showsIncidentCards = enabled
-  }
-
-  func isReportIncidentButtonEnabled() -> Bool {
-    return _mapView.settings.isNavigationReportIncidentButtonEnabled
-  }
-
-  func setReportIncidentButtonEnabled(_ enabled: Bool) {
-    _mapView.settings.isNavigationReportIncidentButtonEnabled = enabled
-  }
-
-  func isTrafficPromptsEnabled() -> Bool {
-    return _isTrafficPromptsEnabled
-  }
-
-  func setTrafficPromptsEnabled(_ enabled: Bool) {
-    _isTrafficPromptsEnabled = enabled
-
-    // If navigation session is available, set the value.
-    if let navigator = try? GoogleMapsNavigationSessionManager.shared.getNavigator() {
-      navigator.shouldDisplayPrompts = enabled
-    }
   }
 
   func isNavigationUIEnabled() -> Bool {

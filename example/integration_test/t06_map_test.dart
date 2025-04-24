@@ -185,54 +185,42 @@ void main() {
       final List<bool> results = <bool>[true, false, true];
       for (final bool result in results) {
         await controller.setMyLocationEnabled(result);
-        expect(await controller.isMyLocationEnabled(), result,
-            reason: buildReasonForToggle('MyLocationEnabled', result));
+        expect(await controller.isMyLocationEnabled(), result);
 
         await controller.settings.setMyLocationButtonEnabled(result);
-        expect(await controller.settings.isMyLocationButtonEnabled(), result,
-            reason: buildReasonForToggle('MyLocationButtonEnabled', result));
+        expect(await controller.settings.isMyLocationButtonEnabled(), result);
 
         await controller.settings.setZoomGesturesEnabled(result);
-        expect(await controller.settings.isZoomGesturesEnabled(), result,
-            reason: buildReasonForToggle('ZoomGesturesEnabled', result));
+        expect(await controller.settings.isZoomGesturesEnabled(), result);
 
         await controller.settings.setCompassEnabled(result);
-        expect(await controller.settings.isCompassEnabled(), result,
-            reason: buildReasonForToggle('CompassEnabled', result));
+        expect(await controller.settings.isCompassEnabled(), result);
 
         await controller.settings.setRotateGesturesEnabled(result);
-        expect(await controller.settings.isRotateGesturesEnabled(), result,
-            reason: buildReasonForToggle('RotateGesturesEnabled', result));
+        expect(await controller.settings.isRotateGesturesEnabled(), result);
 
         await controller.settings.setScrollGesturesEnabled(result);
-        expect(await controller.settings.isScrollGesturesEnabled(), result,
-            reason: buildReasonForToggle('ScrollGesturesEnabled', result));
+        expect(await controller.settings.isScrollGesturesEnabled(), result);
 
         await controller.settings
             .setScrollGesturesDuringRotateOrZoomEnabled(result);
         expect(
             await controller.settings
                 .isScrollGesturesEnabledDuringRotateOrZoom(),
-            result,
-            reason: buildReasonForToggle(
-                'ScrollGesturesDuringRotateOrZoomEnabled', result));
+            result);
 
         await controller.settings.setTiltGesturesEnabled(result);
-        expect(await controller.settings.isTiltGesturesEnabled(), result,
-            reason: buildReasonForToggle('TiltGesturesEnabled', result));
+        expect(await controller.settings.isTiltGesturesEnabled(), result);
 
         await controller.settings.setTrafficEnabled(result);
-        expect(await controller.settings.isTrafficEnabled(), result,
-            reason: buildReasonForToggle('TrafficEnabled', result));
+        expect(await controller.settings.isTrafficEnabled(), result);
 
         if (Platform.isAndroid) {
           await controller.settings.setZoomControlsEnabled(result);
-          expect(await controller.settings.isZoomControlsEnabled(), result,
-              reason: buildReasonForToggle('ZoomControlsEnabled', result));
+          expect(await controller.settings.isZoomControlsEnabled(), result);
 
           await controller.settings.setMapToolbarEnabled(result);
-          expect(await controller.settings.isMapToolbarEnabled(), result,
-              reason: buildReasonForToggle('MapToolbarEnabled', result));
+          expect(await controller.settings.isMapToolbarEnabled(), result);
         }
       }
 
