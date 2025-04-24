@@ -101,8 +101,6 @@ class _NavigationPageState extends ExamplePageState<NavigationPage> {
   bool _speedometerEnabled = false;
   bool _speedLimitIconEnabled = false;
   bool _trafficIndicentCardsEnabled = false;
-  bool _trafficPromptsEnabled = true;
-  bool _reportIncidentButtonEnabled = true;
 
   bool _termsAndConditionsAccepted = false;
   bool _locationPermissionsAccepted = false;
@@ -504,10 +502,6 @@ class _NavigationPageState extends ExamplePageState<NavigationPage> {
           await _navigationViewController!.isSpeedLimitIconEnabled();
       final bool trafficIndicentCardsEnabled =
           await _navigationViewController!.isTrafficIncidentCardsEnabled();
-      final bool trafficPromptsEnabled =
-          await _navigationViewController!.isTrafficPromptsEnabled();
-      final bool reportIncidentButtonEnabled =
-          await _navigationViewController!.isReportIncidentButtonEnabled();
 
       setState(() {
         _navigationHeaderEnabled = navigationHeaderEnabled;
@@ -518,8 +512,6 @@ class _NavigationPageState extends ExamplePageState<NavigationPage> {
         _speedometerEnabled = speedometerEnabled;
         _speedLimitIconEnabled = speedLimitIconEnabled;
         _trafficIndicentCardsEnabled = trafficIndicentCardsEnabled;
-        _trafficPromptsEnabled = trafficPromptsEnabled;
-        _reportIncidentButtonEnabled = reportIncidentButtonEnabled;
       });
     }
   }
@@ -1405,14 +1397,12 @@ class _NavigationPageState extends ExamplePageState<NavigationPage> {
                       ElevatedButton(
                         onPressed: _pauseSimulation,
                         child: const Text('Pause simulation'),
-                      )
-                    else if (_simulationState == SimulationState.paused)
+                      ),
+                    if (_simulationState == SimulationState.paused)
                       ElevatedButton(
                         onPressed: _resumeSimulation,
                         child: const Text('Resume simulation'),
-                      )
-                    else
-                      Text(_simulationState.description),
+                      ),
                   ],
                 ),
                 const SizedBox(height: 10)
@@ -1509,26 +1499,6 @@ class _NavigationPageState extends ExamplePageState<NavigationPage> {
                             .setTrafficIncidentCardsEnabled(newValue);
                         setState(() {
                           _trafficIndicentCardsEnabled = newValue;
-                        });
-                      }),
-                  ExampleSwitch(
-                      title: 'Display traffic prompts',
-                      initialValue: _trafficPromptsEnabled,
-                      onChanged: (bool newValue) async {
-                        await _navigationViewController!
-                            .setTrafficPromptsEnabled(newValue);
-                        setState(() {
-                          _trafficPromptsEnabled = newValue;
-                        });
-                      }),
-                  ExampleSwitch(
-                      title: 'Display report incident button',
-                      initialValue: _reportIncidentButtonEnabled,
-                      onChanged: (bool newValue) async {
-                        await _navigationViewController!
-                            .setReportIncidentButtonEnabled(newValue);
-                        setState(() {
-                          _reportIncidentButtonEnabled = newValue;
                         });
                       }),
                   Text(
@@ -1770,24 +1740,6 @@ class _NavigationPageState extends ExamplePageState<NavigationPage> {
     } else {
       final SnackBar snackBar = SnackBar(content: Text(message));
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
-    }
-  }
-}
-
-/// Returns a human-readable description of the [SimulationState].
-extension SimulationStateDescription on SimulationState {
-  String get description {
-    switch (this) {
-      case SimulationState.unknown:
-        return 'Unknown simulation state';
-      case SimulationState.running:
-        return 'Running';
-      case SimulationState.runningOutdated:
-        return 'Running with outdated route';
-      case SimulationState.paused:
-        return 'Paused';
-      case SimulationState.notRunning:
-        return 'Not running';
     }
   }
 }

@@ -525,14 +525,6 @@ void main() {
               .thenReturn(true);
           when(viewMockApi.isTiltGesturesEnabled(any)).thenReturn(true);
           when(viewMockApi.isMapToolbarEnabled(any)).thenReturn(true);
-          when(viewMockApi.isTrafficPromptsEnabled(any)).thenReturn(true);
-          when(viewMockApi.isReportIncidentButtonEnabled(any)).thenReturn(true);
-          when(viewMockApi.isNavigationHeaderEnabled(any)).thenReturn(true);
-          when(viewMockApi.isNavigationFooterEnabled(any)).thenReturn(true);
-          when(viewMockApi.isSpeedLimitIconEnabled(any)).thenReturn(true);
-          when(viewMockApi.isSpeedometerEnabled(any)).thenReturn(true);
-          when(viewMockApi.isTrafficIncidentCardsEnabled(any)).thenReturn(true);
-          when(viewMockApi.isNavigationUIEnabled(any)).thenReturn(true);
 
           // Test UI element visibility getter return values.
           expect(await controller.isMyLocationEnabled(), true);
@@ -548,14 +540,6 @@ void main() {
               true);
           expect(await controller.settings.isTiltGesturesEnabled(), true);
           expect(await controller.settings.isMapToolbarEnabled(), true);
-          expect(await controller.isTrafficPromptsEnabled(), true);
-          expect(await controller.isReportIncidentButtonEnabled(), true);
-          expect(await controller.isNavigationHeaderEnabled(), true);
-          expect(await controller.isNavigationFooterEnabled(), true);
-          expect(await controller.isSpeedLimitIconEnabled(), true);
-          expect(await controller.isSpeedometerEnabled(), true);
-          expect(await controller.isTrafficIncidentCardsEnabled(), true);
-          expect(await controller.isNavigationUIEnabled(), true);
 
           // Verify calls went through to the platform side.
           verify(viewMockApi.isMyLocationEnabled(captureAny));
@@ -569,14 +553,6 @@ void main() {
               .isScrollGesturesEnabledDuringRotateOrZoom(captureAny));
           verify(viewMockApi.isTiltGesturesEnabled(captureAny));
           verify(viewMockApi.isMapToolbarEnabled(captureAny));
-          verify(viewMockApi.isTrafficPromptsEnabled(captureAny));
-          verify(viewMockApi.isReportIncidentButtonEnabled(captureAny));
-          verify(viewMockApi.isNavigationHeaderEnabled(captureAny));
-          verify(viewMockApi.isNavigationFooterEnabled(captureAny));
-          verify(viewMockApi.isSpeedLimitIconEnabled(captureAny));
-          verify(viewMockApi.isSpeedometerEnabled(captureAny));
-          verify(viewMockApi.isTrafficIncidentCardsEnabled(captureAny));
-          verify(viewMockApi.isNavigationUIEnabled(captureAny));
 
           // Call UI element visibility setters.
           await controller.setMyLocationEnabled(true);
@@ -590,16 +566,8 @@ void main() {
               .setScrollGesturesDuringRotateOrZoomEnabled(true);
           await controller.settings.setTiltGesturesEnabled(true);
           await controller.settings.setMapToolbarEnabled(true);
-          await controller.setTrafficPromptsEnabled(true);
-          await controller.setReportIncidentButtonEnabled(true);
-          await controller.setNavigationHeaderEnabled(true);
-          await controller.setNavigationFooterEnabled(true);
-          await controller.setSpeedLimitIconEnabled(true);
-          await controller.setSpeedometerEnabled(true);
-          await controller.setTrafficIncidentCardsEnabled(true);
-          await controller.setNavigationUIEnabled(true);
 
-          // Verify setters went through with the right parameters.
+          // Verify getters went through with the right parameters.
           verifyEnabled(
               verify(viewMockApi.setMyLocationEnabled(captureAny, captureAny)),
               true);
@@ -636,37 +604,6 @@ void main() {
               true);
           verifyEnabled(
               verify(viewMockApi.setMapToolbarEnabled(captureAny, captureAny)),
-              true);
-          verifyEnabled(
-              verify(
-                  viewMockApi.setTrafficPromptsEnabled(captureAny, captureAny)),
-              true);
-          verifyEnabled(
-              verify(viewMockApi.setReportIncidentButtonEnabled(
-                  captureAny, captureAny)),
-              true);
-          verifyEnabled(
-              verify(viewMockApi.setNavigationHeaderEnabled(
-                  captureAny, captureAny)),
-              true);
-          verifyEnabled(
-              verify(viewMockApi.setNavigationFooterEnabled(
-                  captureAny, captureAny)),
-              true);
-          verifyEnabled(
-              verify(
-                  viewMockApi.setSpeedLimitIconEnabled(captureAny, captureAny)),
-              true);
-          verifyEnabled(
-              verify(viewMockApi.setSpeedometerEnabled(captureAny, captureAny)),
-              true);
-          verifyEnabled(
-              verify(viewMockApi.setTrafficIncidentCardsEnabled(
-                  captureAny, captureAny)),
-              true);
-          verifyEnabled(
-              verify(
-                  viewMockApi.setNavigationUIEnabled(captureAny, captureAny)),
               true);
         });
 

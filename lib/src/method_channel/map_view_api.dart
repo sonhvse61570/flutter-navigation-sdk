@@ -547,28 +547,6 @@ class MapViewAPIImpl {
     return _viewApi.setTrafficIncidentCardsEnabled(viewId, enabled);
   }
 
-  /// Is the report incident button displayed.
-  Future<bool> isReportIncidentButtonEnabled({required int viewId}) {
-    return _viewApi.isReportIncidentButtonEnabled(viewId);
-  }
-
-  /// Should display the report incident button.
-  Future<void> setReportIncidentButtonEnabled(
-      {required int viewId, required bool enabled}) {
-    return _viewApi.setReportIncidentButtonEnabled(viewId, enabled);
-  }
-
-  /// Are the traffic prompts displayed.
-  Future<bool> isTrafficPromptsEnabled({required int viewId}) {
-    return _viewApi.isTrafficPromptsEnabled(viewId);
-  }
-
-  /// Should display the traffic prompts..
-  Future<void> setTrafficPromptsEnabled(
-      {required int viewId, required bool enabled}) {
-    return _viewApi.setTrafficPromptsEnabled(viewId, enabled);
-  }
-
   /// Is navigation UI enabled.
   Future<bool> isNavigationUIEnabled({required int viewId}) {
     return _viewApi.isNavigationUIEnabled(viewId);
@@ -961,8 +939,8 @@ class MapViewAPIImpl {
   }
 
   /// Register camera changed listeners.
-  Future<void> enableOnCameraChangedEvents({required int viewId}) {
-    return _viewApi.enableOnCameraChangedEvents(viewId);
+  Future<void> registerOnCameraChangedListener({required int viewId}) {
+    return _viewApi.registerOnCameraChangedListener(viewId);
   }
 
   Future<void> setPadding({required int viewId, required EdgeInsets padding}) {

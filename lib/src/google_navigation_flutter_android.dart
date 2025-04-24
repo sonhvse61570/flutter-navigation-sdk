@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 
@@ -50,31 +51,26 @@ class GoogleMapsNavigationAndroid extends GoogleMapsNavigationPlatform {
   @override
   Widget buildMapView(
       {required MapViewInitializationOptions initializationOptions,
-      required PlatformViewCreatedCallback onPlatformViewCreated,
       required MapReadyCallback onMapReady}) {
     return _buildView(
         mapViewType: MapViewType.map,
         initializationOptions: initializationOptions,
-        onPlatformViewCreated: onPlatformViewCreated,
         onMapReady: onMapReady);
   }
 
   @override
   Widget buildNavigationView(
       {required MapViewInitializationOptions initializationOptions,
-      required PlatformViewCreatedCallback onPlatformViewCreated,
       required MapReadyCallback onMapReady}) {
     return _buildView(
         mapViewType: MapViewType.navigation,
         initializationOptions: initializationOptions,
-        onPlatformViewCreated: onPlatformViewCreated,
         onMapReady: onMapReady);
   }
 
   Widget _buildView(
       {required MapViewType mapViewType,
       required MapViewInitializationOptions initializationOptions,
-      required PlatformViewCreatedCallback onPlatformViewCreated,
       required MapReadyCallback onMapReady}) {
     // Initialize method channel for view communication if needed.
     viewAPI.ensureViewAPISetUp();
@@ -89,20 +85,38 @@ class GoogleMapsNavigationAndroid extends GoogleMapsNavigationPlatform {
       initializationOptions,
     );
 
-    return AndroidView(
+    return PlatformViewLink(
       viewType: viewType,
-      onPlatformViewCreated: (int viewId) async {
-        onPlatformViewCreated(viewId);
-
-        // On Android the map is initialized asyncronously.
-        // Wait map to be ready before calling [onMapReady] callback
-        await viewAPI.awaitMapReady(viewId: viewId);
-        onMapReady(viewId);
+      surfaceFactory:
+          (BuildContext context, PlatformViewController controller) {
+        return AndroidViewSurface(
+          controller: controller as AndroidViewController,
+          gestureRecognizers: initializationOptions.gestureRecognizers,
+          hitTestBehavior: PlatformViewHitTestBehavior.opaque,
+        );
       },
-      gestureRecognizers: initializationOptions.gestureRecognizers,
-      layoutDirection: initializationOptions.layoutDirection,
-      creationParams: creationParams.encode(),
-      creationParamsCodec: const StandardMessageCodec(),
+      onCreatePlatformView: (PlatformViewCreationParams params) {
+        return PlatformViewsService.initSurfaceAndroidView(
+          id: params.id,
+          viewType: viewType,
+          layoutDirection: initializationOptions.layoutDirection,
+          creationParams: creationParams.encode(),
+          creationParamsCodec: const StandardMessageCodec(),
+          onFocus: () {
+            params.onFocusChanged(true);
+          },
+        )
+          ..addOnPlatformViewCreatedListener(params.onPlatformViewCreated)
+          ..addOnPlatformViewCreatedListener(
+            (int viewId) async {
+              // On Android the map is initialized asyncronously.
+              // Wait map to be ready before calling [onMapReady] callback
+              await viewAPI.awaitMapReady(viewId: viewId);
+              onMapReady(viewId);
+            },
+          )
+          ..create();
+      },
     );
   }
 
