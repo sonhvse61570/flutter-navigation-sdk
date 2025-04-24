@@ -90,7 +90,11 @@ class GoogleMapsNavigationIOS extends GoogleMapsNavigationPlatform {
       creationParamsCodec: const StandardMessageCodec(),
       onPlatformViewCreated: (int viewId) async {
         // Wait map to be ready before calling [onMapReady] callback
-        await viewAPI.awaitMapReady(viewId: viewId);
+        try {
+          await viewAPI.awaitMapReady(viewId: viewId);
+        } on PlatformException catch (e) {
+          // Handle the exception if needed
+        }
         onMapReady(viewId);
       },
       gestureRecognizers: initializationOptions.gestureRecognizers,
