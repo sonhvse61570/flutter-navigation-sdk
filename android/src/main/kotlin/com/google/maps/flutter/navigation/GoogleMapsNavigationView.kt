@@ -75,7 +75,6 @@ internal constructor(
 
     _navigationView.getMapAsync { map ->
       setMap(map)
-
       initListeners()
       imageRegistry.mapViewInitializationComplete()
 
@@ -89,6 +88,7 @@ internal constructor(
       // Call and clear view ready callback if available.
       mapReady()
       mapOptions.padding?.let { setPadding(it) }
+      invalidateViewAfterMapLoad()
     }
   }
 
@@ -154,6 +154,7 @@ internal constructor(
   }
 
   fun setNavigationTripProgressBarEnabled(enabled: Boolean) {
+    invalidateViewAfterMapLoad()
     _navigationView.setTripProgressBarEnabled(enabled)
     _isNavigationTripProgressBarEnabled = enabled
   }
@@ -163,6 +164,7 @@ internal constructor(
   }
 
   fun setNavigationHeaderEnabled(enabled: Boolean) {
+    invalidateViewAfterMapLoad()
     _navigationView.setHeaderEnabled(enabled)
     _isNavigationHeaderEnabled = enabled
   }
@@ -172,6 +174,7 @@ internal constructor(
   }
 
   fun setNavigationFooterEnabled(enabled: Boolean) {
+    invalidateViewAfterMapLoad()
     _navigationView.setEtaCardEnabled(enabled)
     _isNavigationFooterEnabled = enabled
   }
@@ -181,6 +184,7 @@ internal constructor(
   }
 
   fun setRecenterButtonEnabled(enabled: Boolean) {
+    invalidateViewAfterMapLoad()
     _navigationView.setRecenterButtonEnabled(enabled)
     _isRecenterButtonEnabled = enabled
   }
@@ -190,6 +194,7 @@ internal constructor(
   }
 
   fun setSpeedLimitIconEnabled(enabled: Boolean) {
+    invalidateViewAfterMapLoad()
     _navigationView.setSpeedLimitIconEnabled(enabled)
     _isSpeedLimitIconEnabled = enabled
   }
@@ -199,6 +204,7 @@ internal constructor(
   }
 
   fun setSpeedometerEnabled(enabled: Boolean) {
+    invalidateViewAfterMapLoad()
     _navigationView.setSpeedometerEnabled(enabled)
     _isSpeedometerEnabled = enabled
   }
@@ -208,6 +214,7 @@ internal constructor(
   }
 
   fun setTrafficIncidentCardsEnabled(enabled: Boolean) {
+    invalidateViewAfterMapLoad()
     _navigationView.setTrafficIncidentCardsEnabled(enabled)
     _isTrafficIncidentCardsEnabled = enabled
   }
@@ -217,6 +224,7 @@ internal constructor(
   }
 
   fun setReportIncidentButtonEnabled(enabled: Boolean) {
+    invalidateViewAfterMapLoad()
     _navigationView.setReportIncidentButtonEnabled(enabled)
     _isReportIncidentButtonEnabled = enabled
   }
@@ -226,6 +234,7 @@ internal constructor(
   }
 
   fun setTrafficPromptsEnabled(enabled: Boolean) {
+    invalidateViewAfterMapLoad()
     _navigationView.setTrafficPromptsEnabled(enabled)
     _isTrafficPromptsEnabled = enabled
   }
@@ -236,11 +245,13 @@ internal constructor(
 
   fun setNavigationUIEnabled(enabled: Boolean) {
     if (_navigationView.isNavigationUiEnabled != enabled) {
+      invalidateViewAfterMapLoad()
       _navigationView.isNavigationUiEnabled = enabled
     }
   }
 
   fun showRouteOverview() {
+    invalidateViewAfterMapLoad()
     _navigationView.showRouteOverview()
   }
 }

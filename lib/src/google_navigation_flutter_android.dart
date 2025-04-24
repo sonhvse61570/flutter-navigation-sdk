@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 
@@ -84,18 +85,38 @@ class GoogleMapsNavigationAndroid extends GoogleMapsNavigationPlatform {
       initializationOptions,
     );
 
-    return AndroidView(
+    return PlatformViewLink(
       viewType: viewType,
-      onPlatformViewCreated: (int viewId) async {
-        // On Android the map is initialized asyncronously.
-        // Wait map to be ready before calling [onMapReady] callback
-        await viewAPI.awaitMapReady(viewId: viewId);
-        onMapReady(viewId);
+      surfaceFactory:
+          (BuildContext context, PlatformViewController controller) {
+        return AndroidViewSurface(
+          controller: controller as AndroidViewController,
+          gestureRecognizers: initializationOptions.gestureRecognizers,
+          hitTestBehavior: PlatformViewHitTestBehavior.opaque,
+        );
       },
-      gestureRecognizers: initializationOptions.gestureRecognizers,
-      layoutDirection: initializationOptions.layoutDirection,
-      creationParams: creationParams.encode(),
-      creationParamsCodec: const StandardMessageCodec(),
+      onCreatePlatformView: (PlatformViewCreationParams params) {
+        return PlatformViewsService.initSurfaceAndroidView(
+          id: params.id,
+          viewType: viewType,
+          layoutDirection: initializationOptions.layoutDirection,
+          creationParams: creationParams.encode(),
+          creationParamsCodec: const StandardMessageCodec(),
+          onFocus: () {
+            params.onFocusChanged(true);
+          },
+        )
+          ..addOnPlatformViewCreatedListener(params.onPlatformViewCreated)
+          ..addOnPlatformViewCreatedListener(
+            (int viewId) async {
+              // On Android the map is initialized asyncronously.
+              // Wait map to be ready before calling [onMapReady] callback
+              await viewAPI.awaitMapReady(viewId: viewId);
+              onMapReady(viewId);
+            },
+          )
+          ..create();
+      },
     );
   }
 
